@@ -61,7 +61,7 @@ This API aims to handle CVE data efficiently by providing filtering options base
 ## Code Example
 
 ### Backend API for CVE Score Filter
-
+```javascript
 app.get('/api/cves/score/:score', async (req, res) => {
     try {
         const { score } = req.params;
@@ -73,11 +73,12 @@ app.get('/api/cves/score/:score', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
+```
 --- 
-## Output Example:
-1. CVE Score Filter Output (Backend)
+## 📊 Output Examples
 
+### 1. Backend CVE Score Filter Output
+```json
 {
   "cves": [
     {
@@ -101,7 +102,9 @@ app.get('/api/cves/score/:score', async (req, res) => {
   ],
   "score": 7
 }
-2. CVE Year Filter Output (Frontend)
+```
+### 2. Frontend CVE Year Filter Output
+```json
 {
   "cves": [
     {
