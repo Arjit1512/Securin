@@ -59,7 +59,7 @@ const CVEList = () => {
         <tbody>
           {cves.length > 0 ? (
             cves.map((cve) => (
-              <tr key={cve.id} className="cve-list-row" onClick={() => navigate(`/cves/${cve.id}`)}>
+              <tr key={cve.id} className="cve-list-row" onClick={() => navigate(`/Securin/cves/${cve.id}`)}>
                 <td className="cve-list-cell">{cve.id}</td>
                 <td className="cve-list-cell">{cve.metrics?.[0]?.source || 'N/A'}</td>
                 <td className="cve-list-cell">{cve.published}</td>

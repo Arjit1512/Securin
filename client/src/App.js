@@ -8,8 +8,8 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-           <Route path = "/cves/list" element = {<CVEList />} />
-           <Route path = "/cves/:id" element = {<CVE />} />
+           <Route path = "/Securin/cves/list" element = {<CVEList />} />
+           <Route path = "/Securin/cves/:id" element = {<CVE />} />
         </Routes>
       </BrowserRouter>
     </>
