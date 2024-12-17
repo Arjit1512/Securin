@@ -75,11 +75,10 @@ app.get('/api/cves/score/:score', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
+--- 
 ## Output Example:
 1. CVE Score Filter Output (Backend)
-json
-Copy code
+
 {
   "cves": [
     {
@@ -104,8 +103,6 @@ Copy code
   "score": 7
 }
 2. CVE Year Filter Output (Frontend)
-json
-Copy code
 {
   "cves": [
     {
