@@ -11,8 +11,8 @@
     "ajv-keywords": "^5.1.0",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^7.0.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
@@ -24,7 +24,10 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-  },
+  },"overrides": {
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0"
+},
   "eslintConfig": {
     "extends": [
       "react-app",
