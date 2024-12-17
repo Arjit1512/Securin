@@ -114,7 +114,7 @@ app.get('/api/cves/modified/:days', async (req, res) => {
 
 
 //calling only once
-//fetchAndStoreCVE();
+fetchAndStoreCVE();
 
 const PORT = process.env.PORT;
 mongoose.connect(process.env.MONGO_URL)
