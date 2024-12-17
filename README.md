@@ -1,4 +1,4 @@
-# CVE Management API with React Frontend
+# CVE Management API
 
 This repository contains both backend and frontend implementations for a CVE Management System. The API serves as the backend solution, providing endpoints to filter and retrieve CVE details based on various criteria like CVE ID, year, CVE score, and last modified date. The frontend built with React provides a user interface to interact with these API endpoints.
 
@@ -10,12 +10,11 @@ This repository contains both backend and frontend implementations for a CVE Man
 - **Node.js**: For server-side logic and API development.
 - **Express.js**: A lightweight web framework for Node.js.
 - **MongoDB**: NoSQL database for storing CVE data.
-- **Mongoose**: ODM (Object Document Mapper) for MongoDB.
 
 ### Frontend
 - **React.js**: For building the frontend user interface.
 - **Axios**: For making API requests.
-- **Bootstrap**: CSS framework for styling.
+- **CSS**: For styling of website.
 
 ---
 
@@ -63,7 +62,6 @@ This API aims to handle CVE data efficiently by providing filtering options base
 
 ### Backend API for CVE Score Filter
 
-```javascript
 app.get('/api/cves/score/:score', async (req, res) => {
     try {
         const { score } = req.params;
@@ -75,6 +73,7 @@ app.get('/api/cves/score/:score', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 --- 
 ## Output Example:
 1. CVE Score Filter Output (Backend)
