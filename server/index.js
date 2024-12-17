@@ -11,7 +11,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
 dotenv.config();
 
-
 const fetchAndStoreCVE = async () => {
     try {
         const response = await axios.get('https://services.nvd.nist.gov/rest/json/cves/2.0');
