@@ -42,7 +42,7 @@ const CVEList = () => {
         console.error('Invalid filter type');
         break;
     }
-    setCurrentPage(1); // Reset to page 1 on applying filter
+    setCurrentPage(1); 
   };
 
 
@@ -63,13 +63,14 @@ const CVEList = () => {
       }
 
       const response = await axios.get(endpoint, { params });
-      setCVEs(response.data.cves || []);
+      const cleanedCVEs = response.data.cves.filter(cve => 
+        cve.metrics?.[0]?.source && cve.published && cve.lastModified && cve.vulnStatus
+      );
+      
+      setCVEs(cleanedCVEs || []);
       setTotalRecords(response.data.totalRecords || 0);
       setTotalPages(Math.ceil(response.data.totalRecords / resultsPerPage));
     };
-
-
-
 
     fetchCVEs();
   }, [currentPage, resultsPerPage, year, score, days]);
