@@ -11,6 +11,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
 dotenv.config();
 
+
 const fetchAndStoreCVE = async () => {
     try {
         const response = await axios.get('https://services.nvd.nist.gov/rest/json/cves/2.0');
@@ -71,50 +72,70 @@ app.get('/api/cves/:id', async (req, res) => {
 app.get('/api/cves/year/:year', async (req, res) => {
     try {
         const { year } = req.params;
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+
         const cves = await CVE.find({
             published: { $regex: new RegExp(`^${year}-`), $options: 'i' }
-        });
-        res.status(200).json(cves);
+        })
+        .skip((page - 1) * limit)
+        .limit(limit);
+
+        const totalRecords = await CVE.countDocuments({ published: { $regex: new RegExp(`^${year}-`), $options: 'i' } });
+
+        res.status(200).json({ totalRecords, cves });
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+
 
 app.get('/api/cves/score/:score', async (req, res) => {
     try {
         const { score } = req.params;
-        const cves = await CVE.find({ "metrics.cvssData.baseScore": { $gte: parseFloat(score) } });
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
 
-        res.status(200).json({ cves, score: parseFloat(score) });
+        const cves = await CVE.find({ "metrics.cvssData.baseScore": { $gte: parseFloat(score) } })
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        const totalRecords = await CVE.countDocuments({ "metrics.cvssData.baseScore": { $gte: parseFloat(score) } });
+
+        res.status(200).json({ totalRecords, cves, score: parseFloat(score) });
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 
 app.get('/api/cves/modified/:days', async (req, res) => {
     try {
         const { days } = req.params;
-
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
         const currentDate = new Date();
         currentDate.setDate(currentDate.getDate() - parseInt(days));
-
         const dateLimit = currentDate.toISOString().slice(0, -1);
 
-        const cves = await CVE.find({ "lastModified": { $gte: String(dateLimit) } });
+        const cves = await CVE.find({ "lastModified": { $gte: String(dateLimit) } })
+            .skip((page - 1) * limit)
+            .limit(limit);
 
-        res.status(200).json({ cves, dateLimit });
+        const totalRecords = await CVE.countDocuments({ "lastModified": { $gte: String(dateLimit) } });
+
+        res.status(200).json({ totalRecords, cves, dateLimit });
     } catch (error) {
-        console.error('Error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
 
 
-
 //calling only once
-fetchAndStoreCVE();
+//fetchAndStoreCVE();
 
 const PORT = process.env.PORT;
 mongoose.connect(process.env.MONGO_URL)
