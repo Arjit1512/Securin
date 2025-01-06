@@ -66,7 +66,6 @@ const CVEList = () => {
       const cleanedCVEs = response.data.cves.filter(cve => 
         cve.metrics?.[0]?.source && cve.published && cve.lastModified && cve.vulnStatus
       );
-      
       setCVEs(cleanedCVEs || []);
       setTotalRecords(response.data.totalRecords || 0);
       setTotalPages(Math.ceil(response.data.totalRecords / resultsPerPage));

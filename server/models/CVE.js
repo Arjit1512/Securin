@@ -5,10 +5,8 @@ const cveSchema = new mongoose.Schema({
     published: String,
     lastModified: String,
     vulnStatus: String,
-    descriptions: [String],
     metrics: Object,
     configurations: [Object],
-    references: [String],
 });
 
 const CVE = mongoose.model('CVE', cveSchema);
